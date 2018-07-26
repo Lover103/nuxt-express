@@ -21,25 +21,28 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    { src: '~/assets/css/main.css' },
-    { src: 'iview/dist/styles/iview.css' }
+    { src: '~/assets/css/main.css' }
+    // { src: 'iview/dist/styles/iview.css' }
   ],
   /*
   ** Add axios globally
   */
   build: {
-    vendor: ['axios', 'particles.js'],
+    vendor: ['axios', 'iview'],
+
+    // analyze: true,
+
     /*
     ** Run ESLINT on save
     */
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+        // config.module.rules.push({
+        //   enforce: 'pre',
+        //   test: /\.(js|vue)$/,
+        //   loader: 'eslint-loader',
+        //   exclude: /(node_modules)/
+        // })
       }
     }
   },
@@ -48,7 +51,6 @@ module.exports = {
     '~/api/index.js'
   ],
   plugins: [
-    { src: '~/plugins/particles.js', ssr: false },
-    { src: '~/plugins/iview.js', ssr: false }
+    { src: '~/plugins/iview.js', ssr: true }
   ]
 }

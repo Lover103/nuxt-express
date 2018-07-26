@@ -1,71 +1,32 @@
-import axios from 'axios'
-import Vuex from 'vuex'
+import Vue from '_vue@2.5.16@vue'
+import Vuex from '_vuex@3.0.1@vuex'
+import app from './modules/app'
+import user from './modules/user'
 
-const store = () => new Vuex.Store({
-  state: {
-    docVersion: '',
-    ghVersion: '',
-    visibleHeader: false,
-    visibleAffix: false,
-    apiURI: 'https://docs.api.nuxtjs.org',
-    locale: 'en',
-    lang: {},
-    menu: {}
-  },
-  mutations: {
-    toggle(state, key) {
-      state[key] = !state[key]
+Vue.use(Vuex)
+
+const store = () =>
+  new Vuex.Store({
+    state: {
+      name: ''
     },
-    setApiURI(state, apiURI) {
-      state.apiURI = apiURI
+    getters: {
     },
-    setDocVersion(state, docVersion) {
-      state.docVersion = docVersion
+    mutations: {},
+    actions: {
+      nuxtServerInit: async({ commit }, { req, res }) => {
+        // console.log('nuxtServerInit', res.session)
+        if (!!req.session && !!req.session.user && !!req.session.user.token) {
+          commit('LOGIN', req.session)
+        } else {
+          commit('LOGOUT')
+        }
+      }
     },
-    setGhVersion(state, ghVersion) {
-      state.ghVersion = ghVersion
-    },
-    setLocale(state, locale) {
-      state.locale = locale
-    },
-    setLang(state, lang) {
-      state.lang = lang
-    },
-    setMenu(state, menu) {
-      state.menu = menu
+    modules: {
+      app,
+      user
     }
-  },
-  actions: {
-    async nuxtServerInit({
-      state,
-      commit
-    }, {
-      isDev,
-      req,
-      redirect
-    }) {
-      if (isDev) {
-        // commit('setApiURI', 'http://localhost:4000')
-      }
-      const hostParts = (req.headers.host || '').replace('.org', '').split('.')
-      // If url like ja.nuxtjs.org
-      if (hostParts.length === 2) {
-        if (hostParts[0] === 'www') return redirect(301, 'https://nuxtjs.org' + req.url)
-        commit('setLocale', hostParts[0])
-      }
-      try {
-        const resReleases = await axios(state.apiURI + '/releases')
-        commit('setGhVersion', resReleases.data[0].name)
-        const resLang = await axios(state.apiURI + '/lang/' + state.locale)
-        commit('setLang', resLang.data)
-        commit('setDocVersion', resLang.data.docVersion)
-        const resMenu = await axios(state.apiURI + '/menu/' + state.locale)
-        commit('setMenu', resMenu.data)
-      } catch (e) {
-        console.error('Error on [nuxtServerInit] action, please run the docs server.') // eslint-disable-line no-console
-      }
-    }
-  }
-})
+  })
 
 export default store

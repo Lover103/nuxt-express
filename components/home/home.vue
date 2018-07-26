@@ -1,52 +1,6 @@
 <style lang="less">
-.user-infor{
-    height: 135px;
-}
-.avator-img{
-    display: block;
-    width: 80%;
-    max-width: 100px;
-    height: auto;
-}
-.card-user-infor-name{
-    font-size: 2em;
-    color: #2d8cf0;
-}
-.card-title{
-    color: #abafbd;
-}
-.made-child-con-middle{
-    height: 100%;
-}
-.to-do-list-con{
-    height: 145px;
-    overflow: auto;
-}
-.to-do-item{
-    padding: 2px;
-}
-.infor-card-con{
-    height: 100px;
-}
-.infor-card-icon-con{
-    height: 100%;
-    color: white;
-    border-radius: 3px 0 0 3px;
-}
-.map-con{
-    height: 305px;
-}
-.map-incon{
-    height: 100%;
-}
-.data-source-row{
-    height: 200px;
-}
-.line-chart-con{
-    height: 150px;
-}
-
-@import '../assets/css/common.less';
+@import './home.less';
+@import '../../assets/css/common.less';
 </style>
 <template>
     <div class="home-main">
@@ -197,17 +151,16 @@
 </template>
 
 <script>
-import cityData from '../components/home/map-data/get-city-value.js'
-import homeMap from '../components/home/components/map.vue'
-import dataSourcePie from '../components/home/components/dataSourcePie.vue'
-import visiteVolume from '../components/home/components/visiteVolume.vue'
-import serviceRequests from '../components/home/components/serviceRequests.vue'
-import userFlow from '../components/home/components/userFlow.vue'
-import countUp from '../components/home/components/countUp.vue'
-import inforCard from '../components/home/components/inforCard.vue'
-import mapDataTable from '../components/home/components/mapDataTable.vue'
-import toDoListItem from '../components/home/components/toDoListItem.vue'
-import util from '@/libs/util.js'
+import cityData from './map-data/get-city-value.js';
+import homeMap from './components/map.vue';
+import dataSourcePie from './components/dataSourcePie.vue';
+import visiteVolume from './components/visiteVolume.vue';
+import serviceRequests from './components/serviceRequests.vue';
+import userFlow from './components/userFlow.vue';
+import countUp from './components/countUp.vue';
+import inforCard from './components/inforCard.vue';
+import mapDataTable from './components/mapDataTable.vue';
+import toDoListItem from './components/toDoListItem.vue';
 
 export default {
   name: 'home',
@@ -220,97 +173,64 @@ export default {
     countUp,
     inforCard,
     mapDataTable,
-    toDoListItem
+    toDoListItem,
   },
   data() {
     return {
       toDoList: [
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '去iView官网学习完整的iView组件',
         },
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '去iView官网学习完整的iView组件',
         },
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '去iView官网学习完整的iView组件',
         },
         {
-          title: '去iView官网学习完整的iView组件'
+          title: '去iView官网学习完整的iView组件',
         },
         {
-          title: '去iView官网学习完整的iView组件'
-        }
+          title: '去iView官网学习完整的iView组件',
+        },
       ],
       count: {
         createUser: 496,
         visit: 3264,
         collection: 24389305,
-        transfer: 39503498
+        transfer: 39503498,
       },
       cityData: cityData,
       showAddNewTodo: false,
-      newToDoItemValue: ''
-    }
+      newToDoItemValue: '',
+    };
   },
   computed: {
     avatorPath() {
-      return ''
+      return '';
     },
-    pageTagsList() {
-      return this.$store.state.app.pageOpenedList // 打开的页面的页面对象
-    }
   },
   methods: {
     addNewToDoItem() {
-      this.showAddNewTodo = true
+      this.showAddNewTodo = true;
     },
     addNew() {
       if (this.newToDoItemValue.length !== 0) {
         this.toDoList.unshift({
-          title: this.newToDoItemValue
-        })
+          title: this.newToDoItemValue,
+        });
         setTimeout(() => {
-          this.newToDoItemValue = ''
-        }, 200)
-        this.showAddNewTodo = false
+          this.newToDoItemValue = '';
+        }, 200);
+        this.showAddNewTodo = false;
       } else {
-        this.$Message.error('请输入待办事项内容')
+        this.$Message.error('请输入待办事项内容');
       }
     },
     cancelAdd() {
-      this.showAddNewTodo = false
-      this.newToDoItemValue = ''
+      this.showAddNewTodo = false;
+      this.newToDoItemValue = '';
     },
-    checkTag(name) {
-      // console.log('pageTagsList--------', this.pageTagsList)
-      let openpageHasTag = this.pageTagsList.some(item => {
-        // console.log('openpageHasTag--------', item.name)
-        if (item.name === name) {
-          return true
-        }
-      })
-      if (!openpageHasTag) {
-        //  解决关闭当前标签后再点击回退按钮会退到当前页时没有标签的问题
-        // console.log('openNewPage--------', name)
-        util.openNewPage(
-          this,
-          name,
-          this.$route.params || {},
-          this.$route.query || {}
-        )
-      }
-    }
   },
-  mounted() {
-    this.$store.commit('setOpenedList')
-    this.checkTag(this.$route.name)
-  },
-  created() {
-    /**服务端渲染左侧导航条及pannel页面内容**/
-    this.currentPageName = this.$route.name
-    util.setCurrentPath(this, this.$route.name)
-    this.$store.commit('updateMenulist')
-    /**服务端渲染左侧导航条及pannel页面内容**/
-  }
-}
+};
 </script>
