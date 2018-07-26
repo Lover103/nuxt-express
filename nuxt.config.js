@@ -17,6 +17,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  router: {
+    // middleware: 'authenticated'
+  },
   /*
   ** Global CSS
   */
@@ -51,6 +54,7 @@ module.exports = {
     '~/api/index.js'
   ],
   plugins: [
-    { src: '~/plugins/iview.js', ssr: true }
+    { src: '~/plugins/iview.js', ssr: true },
+    { src: '~/plugins/filters.js', ssr: false }
   ]
 }

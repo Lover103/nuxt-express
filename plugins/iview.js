@@ -1,5 +1,5 @@
-import Vue from '_vue@2.5.16@vue'
-import iView from '_iview@2.14.3@iview'
+import Vue from 'vue'
+import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 Vue.use(iView)

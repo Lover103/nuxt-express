@@ -211,6 +211,7 @@ import util from '@/libs/util.js'
 
 export default {
   name: 'home',
+  // middleware: 'authenticated',
   components: {
     homeMap,
     dataSourcePie,

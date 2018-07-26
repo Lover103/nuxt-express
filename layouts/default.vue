@@ -64,10 +64,10 @@ import tagsPageOpened from '../components/layout/tags-page-opened.vue'
 import breadcrumbNav from '../components/layout/breadcrumb-nav.vue'
 import util from '@/libs/util.js'
 // 这里特别提示，登陆和退出，以及需要koa2端请求接口的，使用axios插件
-import axios from '~/plugins/axios'
+import axios from 'axios'
 
 export default {
-  // middleware: 'auth', // 定义页面中间件
+  // middleware: 'authenticated',
   components: {
     shrinkableMenu,
     tagsPageOpened,
@@ -208,7 +208,7 @@ export default {
   created() {
     /**服务端渲染左侧导航条及pannel页面内容**/
     this.currentPageName = this.$route.name
-    util.setCurrentPath(this, this.$route.name)
+    // util.setCurrentPath(this, this.$route.name)
     this.$store.commit('updateMenulist')
     /**服务端渲染左侧导航条及pannel页面内容**/
   },

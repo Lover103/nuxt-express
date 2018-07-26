@@ -28,7 +28,7 @@
 </template>
 <script>
 import md5 from '~/libs/md5'
-import axios from '~/plugins/axios'
+import axios from 'axios'
 export default {
   layout: 'full',
   asyncData({ query }) {
