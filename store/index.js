@@ -1,5 +1,5 @@
-import Vue from '_vue@2.5.16@vue'
-import Vuex from '_vuex@3.0.1@vuex'
+import Vue from 'vue'
+import Vuex from 'vuex'
 import app from './modules/app'
 import user from './modules/user'
 

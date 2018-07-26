@@ -1,7 +1,7 @@
-import { otherRouter, appRouter } from '@/router/router'
+import { otherRouter, appRouter } from '@/config/config'
 import Util from '@/libs/util'
 import Cookies from 'js-cookie'
-import Vue from '_vue@2.5.16@vue'
+import Vue from 'vue'
 
 const app = {
   state: {
